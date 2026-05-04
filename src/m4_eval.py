@@ -73,7 +73,7 @@ def evaluate_ragas(questions: list[str], answers: list[str],
 
     try:
         from ragas import RunConfig
-        run_cfg = RunConfig(max_workers=1, max_wait=180, timeout=120)
+        run_cfg = RunConfig(max_workers=4, max_wait=180, timeout=120)
         result = evaluate(
             dataset,
             metrics=[faithfulness, answer_relevancy, context_precision, context_recall],
