@@ -87,6 +87,16 @@
 
 ---
 
+## Known Limitations
+
+1. **Cross-page table OCR** — `convert_pdfs.py` xu ly tung trang PDF doc lap nhau. Khi bang du lieu trai qua 2 trang (vi du chi tieu [42], [43] trong BCTC), trang sau khong biet header cua bang o trang truoc nen Vision API format thanh mini-table rieng biet thay vi tiep tuc dong bang chinh. Gia tri [42]=0 va [43]=0 nen khong anh huong den ket qua Q&A trong test set, nhung day la han che cua phuong phap OCR tung trang doc lap.
+   - **Giai phap kha thi:** Truyen tail content trang truoc vao prompt trang sau lam context, hoac gep anh 2 trang lien tiep. Chi phi ~30-60 phut implement + re-run OCR.
+   - **Ly do khong fix:** Cost/benefit thap — gia tri bi anh huong deu la 0, khong co cau hoi nao trong test set ve [42]/[43].
+
+2. **answer_relevancy = NaN** — RAGAS 0.4.3 khong tuong thich voi langchain-openai 1.2.x (da xoa sync `embed_query`). Ba metric con lai (faithfulness, context_precision, context_recall) van hoat dong binh thuong.
+
+---
+
 ## Presentation Notes (5 phut)
 
 1. **RAGAS scores (naive vs production):** Xem bang tren, highlight metric cai thien nhieu nhat.
