@@ -1,3 +1,34 @@
 [
-  {"question": "hihi cả nhà tự tạo testset bằng cơm nhé", "ground_truth": "Không kịp tạo luôn"},
+  {
+    "question": "Ten cong ty nop thue la gi?",
+    "ground_truth": "CONG TY CO PHAN DHA SURFACES"
+  },
+  {
+    "question": "Ma so thue cua cong ty la bao nhieu?",
+    "ground_truth": "0106769437"
+  },
+  {
+    "question": "Ky tinh thue cua to khai la quy nao nam nao?",
+    "ground_truth": "Quy 4 nam 2024"
+  },
+  {
+    "question": "Thue gia tri gia tang phai nop doi voi hoat dong san xuat kinh doanh la bao nhieu?",
+    "ground_truth": "2.133.830"
+  },
+  {
+    "question": "Nghi dinh 13/2023/ND-CP ban hanh ngay nao?",
+    "ground_truth": "ngay 17 thang 4 nam 2023"
+  },
+  {
+    "question": "Nghi dinh 13/2023/ND-CP quy dinh ve van de gi?",
+    "ground_truth": "Bao ve du lieu ca nhan"
+  },
+  {
+    "question": "Co quan nao ban hanh Nghi dinh so 13/2023/ND-CP?",
+    "ground_truth": "Chinh phu"
+  },
+  {
+    "question": "Nguoi ky to khai thue GTGT la ai?",
+    "ground_truth": "TRINH THI SANG"
+  }
 ]
