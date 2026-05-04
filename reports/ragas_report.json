@@ -1,0 +1,75 @@
+{
+  "aggregate": {
+    "faithfulness": 0.75,
+    "answer_relevancy": NaN,
+    "context_precision": 0.35416666664583335,
+    "context_recall": 0.5
+  },
+  "num_questions": 8,
+  "failures": [
+    {
+      "question": "",
+      "worst_metric": "context_precision",
+      "score": 0.0,
+      "avg_score": NaN,
+      "diagnosis": "Too many irrelevant chunks in context",
+      "suggested_fix": "Add reranking (bge-reranker) or metadata filtering"
+    },
+    {
+      "question": "",
+      "worst_metric": "context_precision",
+      "score": 0.0,
+      "avg_score": NaN,
+      "diagnosis": "Missing relevant chunks — retrieval not finding answer",
+      "suggested_fix": "Improve chunking (smaller chunks) or add BM25 to hybrid search"
+    },
+    {
+      "question": "",
+      "worst_metric": "faithfulness",
+      "score": 0.0,
+      "avg_score": NaN,
+      "diagnosis": "LLM hallucinating — answer not grounded in context",
+      "suggested_fix": "Tighten prompt: add 'Answer ONLY based on context', lower temperature"
+    },
+    {
+      "question": "",
+      "worst_metric": "context_precision",
+      "score": 0.99999999995,
+      "avg_score": NaN,
+      "diagnosis": "Too many irrelevant chunks in context",
+      "suggested_fix": "Add reranking (bge-reranker) or metadata filtering"
+    },
+    {
+      "question": "",
+      "worst_metric": "context_precision",
+      "score": 0.49999999995,
+      "avg_score": NaN,
+      "diagnosis": "Too many irrelevant chunks in context",
+      "suggested_fix": "Add reranking (bge-reranker) or metadata filtering"
+    },
+    {
+      "question": "",
+      "worst_metric": "context_precision",
+      "score": 0.9999999999666667,
+      "avg_score": NaN,
+      "diagnosis": "Too many irrelevant chunks in context",
+      "suggested_fix": "Add reranking (bge-reranker) or metadata filtering"
+    },
+    {
+      "question": "",
+      "worst_metric": "context_recall",
+      "score": 0.0,
+      "avg_score": NaN,
+      "diagnosis": "Missing relevant chunks — retrieval not finding answer",
+      "suggested_fix": "Improve chunking (smaller chunks) or add BM25 to hybrid search"
+    },
+    {
+      "question": "",
+      "worst_metric": "faithfulness",
+      "score": 0.0,
+      "avg_score": NaN,
+      "diagnosis": "LLM hallucinating — answer not grounded in context",
+      "suggested_fix": "Tighten prompt: add 'Answer ONLY based on context', lower temperature"
+    }
+  ]
+}

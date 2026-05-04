@@ -86,26 +86,38 @@ def evaluate_ragas(questions: list[str], answers: list[str],
 
     df = result.to_pandas()
 
+    import math
+
+    def _safe_float(val, default=0.0):
+        try:
+            v = float(val)
+            return default if math.isnan(v) else v
+        except (TypeError, ValueError):
+            return default
+
     per_question = []
-    for _, row in df.iterrows():
+    for i, (_, row) in enumerate(df.iterrows()):
         per_question.append(EvalResult(
-            question=row.get("question", ""),
-            answer=row.get("answer", ""),
-            contexts=row.get("contexts", []),
-            ground_truth=row.get("ground_truth", ""),
-            faithfulness=float(row.get("faithfulness", 0.0) or 0.0),
-            answer_relevancy=float(row.get("answer_relevancy", 0.0) or 0.0),
-            context_precision=float(row.get("context_precision", 0.0) or 0.0),
-            context_recall=float(row.get("context_recall", 0.0) or 0.0),
+            question=questions[i] if i < len(questions) else row.get("question", ""),
+            answer=answers[i] if i < len(answers) else row.get("answer", ""),
+            contexts=contexts[i] if i < len(contexts) else row.get("contexts", []),
+            ground_truth=ground_truths[i] if i < len(ground_truths) else row.get("ground_truth", ""),
+            faithfulness=_safe_float(row.get("faithfulness")),
+            answer_relevancy=_safe_float(row.get("answer_relevancy")),
+            context_precision=_safe_float(row.get("context_precision")),
+            context_recall=_safe_float(row.get("context_recall")),
         ))
 
-    # Compute aggregates from per-question results
+    # Compute aggregates from per-question results (prefer RAGAS aggregate if available)
     if per_question:
+        def _mean(vals):
+            valid = [v for v in vals if v > 0 or v == 0]
+            return sum(valid) / len(valid) if valid else 0.0
         agg = {
-            "faithfulness": sum(r.faithfulness for r in per_question) / len(per_question),
-            "answer_relevancy": sum(r.answer_relevancy for r in per_question) / len(per_question),
-            "context_precision": sum(r.context_precision for r in per_question) / len(per_question),
-            "context_recall": sum(r.context_recall for r in per_question) / len(per_question),
+            "faithfulness": _mean([r.faithfulness for r in per_question]),
+            "answer_relevancy": _mean([r.answer_relevancy for r in per_question]),
+            "context_precision": _mean([r.context_precision for r in per_question]),
+            "context_recall": _mean([r.context_recall for r in per_question]),
         }
     else:
         agg = {"faithfulness": 0.0, "answer_relevancy": 0.0,
@@ -119,10 +131,13 @@ def failure_analysis(eval_results: list[EvalResult], bottom_n: int = 10) -> list
     if not eval_results:
         return []
 
-    # Compute composite score for each result
+    # Compute composite score for each result (exclude 0-valued answer_relevancy from NaN)
     scored = []
     for r in eval_results:
-        avg_score = (r.faithfulness + r.answer_relevancy + r.context_precision + r.context_recall) / 4
+        vals = [r.faithfulness, r.context_precision, r.context_recall]
+        if r.answer_relevancy > 0:
+            vals.append(r.answer_relevancy)
+        avg_score = sum(vals) / len(vals) if vals else 0.0
         scored.append((avg_score, r))
 
     # Sort ascending (worst first), take bottom_n
@@ -131,13 +146,14 @@ def failure_analysis(eval_results: list[EvalResult], bottom_n: int = 10) -> list
 
     failures = []
     for avg_score, r in bottom:
-        # Find worst metric
+        # Find worst metric (exclude answer_relevancy=0 from NaN)
         metrics = {
             "faithfulness": r.faithfulness,
-            "answer_relevancy": r.answer_relevancy,
             "context_precision": r.context_precision,
             "context_recall": r.context_recall,
         }
+        if r.answer_relevancy > 0:
+            metrics["answer_relevancy"] = r.answer_relevancy
         worst_metric = min(metrics, key=lambda m: metrics[m])
         worst_score = metrics[worst_metric]
 

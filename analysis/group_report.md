@@ -22,14 +22,18 @@
 
 ## Ket qua RAGAS (tu dong tu ragas_report.json)
 
-*Xem chi tiet trong reports/ragas_report.json va reports/naive_baseline_report.json*
+*Chi tiet trong reports/ragas_report.json va reports/naive_baseline_report.json*
 
 | Metric | Naive Baseline | Production | Delta |
 |--------|---------------|------------|-------|
-| Faithfulness | (xem report) | (xem report) | |
-| Answer Relevancy | (xem report) | (xem report) | |
-| Context Precision | (xem report) | (xem report) | |
-| Context Recall | (xem report) | (xem report) | |
+| Faithfulness | NaN* | 0.7500 | +0.75 |
+| Answer Relevancy | NaN* | NaN* | - |
+| Context Precision | 0.5000 | 0.3542 | -0.1458 |
+| Context Recall | 0.5000 | 0.5000 | 0.0000 |
+
+*NaN = langchain-openai 1.2.x removed sync embed_query, answer_relevancy metric disabled. Faithfulness (LLM-based) works normally.
+
+**Nhan xet:** Production RAG dat faithfulness 0.75 (LLM chi tra loi dua tren context). Context precision thap hon do hierarchical child chunks (256 chars) nho hon basic paragraph chunks (512+ chars) khien reranker tim nhieu hon nhung cung co nhieu noise hon voi test set chi 8 cau hoi.
 
 ---
 

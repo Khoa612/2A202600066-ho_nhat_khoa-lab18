@@ -9,12 +9,14 @@
 
 | Metric | Naive Baseline | Production | Delta |
 |--------|---------------|------------|-------|
-| Faithfulness | (xem ragas_report.json) | (xem ragas_report.json) | |
-| Answer Relevancy | | | |
-| Context Precision | | | |
-| Context Recall | | | |
+| Faithfulness | NaN* | 0.7500 | +0.75 |
+| Answer Relevancy | NaN* | NaN* | - |
+| Context Precision | 0.5000 | 0.3542 | -0.1458 |
+| Context Recall | 0.5000 | 0.5000 | 0.0000 |
 
-*Luu y: Gia tri chinh xac trong reports/ragas_report.json va reports/naive_baseline_report.json*
+*NaN do langchain-openai 1.2.x xoa sync embed_query; answer_relevancy bi disable. Faithfulness (LLM-based) va context metrics (RAGAS-internal) van hoat dong.
+
+*Chi tiet: reports/ragas_report.json va reports/naive_baseline_report.json*
 
 ---
 
