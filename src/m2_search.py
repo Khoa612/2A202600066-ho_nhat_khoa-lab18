@@ -1,6 +1,7 @@
 """Module 2: Hybrid Search — BM25 (Vietnamese) + Dense + RRF."""
 
-import os, sys
+import os
+import sys
 from dataclasses import dataclass
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -172,5 +173,5 @@ class HybridSearch:
 
 
 if __name__ == "__main__":
-    print(f"Original:  Nhan vien duoc nghi phep nam")
+    print("Original:  Nhan vien duoc nghi phep nam")
     print(f"Segmented: {segment_vietnamese('Nhan vien duoc nghi phep nam')}")

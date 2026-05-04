@@ -6,8 +6,10 @@ Làm giàu chunks TRƯỚC khi embed: Summarize, HyQA, Contextual Prepend, Auto 
 Test: pytest tests/test_m5.py
 """
 
-import os, sys, json
-from dataclasses import dataclass, field
+import os
+import sys
+import json
+from dataclasses import dataclass
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import OPENAI_API_KEY

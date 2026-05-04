@@ -1,6 +1,8 @@
 """Module 4: RAGAS Evaluation — 4 metrics + failure analysis."""
 
-import os, sys, json
+import os
+import sys
+import json
 from dataclasses import dataclass
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -36,7 +38,6 @@ def load_test_set(path: str = TEST_SET_PATH) -> list[dict]:
 def evaluate_ragas(questions: list[str], answers: list[str],
                    contexts: list[list[str]], ground_truths: list[str]) -> dict:
     """Run RAGAS evaluation."""
-    import os
     from ragas import evaluate
     from ragas.metrics import faithfulness, answer_relevancy, context_precision, context_recall
     from datasets import Dataset

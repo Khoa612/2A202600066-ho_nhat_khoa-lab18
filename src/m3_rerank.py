@@ -1,6 +1,8 @@
 """Module 3: Reranking — Cross-encoder top-20 → top-3 + latency benchmark."""
 
-import os, sys, time
+import os
+import sys
+import time
 from dataclasses import dataclass
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
